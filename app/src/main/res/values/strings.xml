@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LetrasJogoDaVelha</string>
+    <string name="JxJ">Jogar contra amigo</string>
+    <string name="JxA">Contra I.A</string>
+    <string name="Restart">Restart</string>
+</resources>

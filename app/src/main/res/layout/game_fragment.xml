@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="105dp"
+            android:background="@color/accent" />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="@color/accent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="105dp"
+            android:background="@color/accent" />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="@color/accent" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow>
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t1"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t2"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t3"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t4"
+                android:src="@drawable/baseline_circle_24"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t5"
+                android:src="@drawable/baseline_circle_24"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t6"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t7"
+                android:src="@drawable/baseline_circle_24"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t8"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+
+            <ImageView
+                android:alpha="0"
+                android:id="@+id/t9"
+                android:src="@drawable/close"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                app:tint="@color/accent" />
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
