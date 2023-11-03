@@ -103,7 +103,6 @@ class GameFragment: Fragment() {
         }
 
         if (viewModel.checkDraw()) {
-
             openDialogWith(getString(R.string.draw), getString(R.string.the_match_tie))
         }
     }
