@@ -16,6 +16,8 @@ class HomeFragment: Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
     private var playsFirst: Boolean = true
+
+    // MOMENTO EM QUE A VIEW DO FRAGMENT VAI SER CRIADA
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,13 +26,14 @@ class HomeFragment: Fragment() {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    // MOMENTO EM QUE A VIEW DO FRAGMENT JA FOI CRIADA E SETANDO O LAYOUT
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
         setPlayerTile(if(playsFirst) Tile.X else Tile.O)
     }
 
+    // PEGANDO AS VIEWS E COLOCANDO OUVINTES DE CLICKS NELA
     private fun bindUI() {
         binding.buttonAI.setOnClickListener {
             navigateToGame(true)
@@ -48,12 +51,13 @@ class HomeFragment: Fragment() {
             setPlayerTile(Tile.O)
         }
     }
-
+    // NAVEGANDO PARA O FRAGMENT DO GAME COM DOIS ARGUMENTOS BOOLEANOS
     private fun navigateToGame(isSinglePlayer: Boolean) {
         val bundle = bundleOf("isSinglePlayer" to isSinglePlayer, "playsFirst" to playsFirst)
         findNavController().navigate(R.id.action_goToGame, bundle)
     }
 
+    // TROCANDO AS CORES DE ACORDO COM A SELEÇÃO DO USUARIO AO TILE
     private fun setPlayerTile(tile: Tile) {
         playsFirst = tile == Tile.X
         val mainColor = if (tile == Tile.X) R.color.accent else R.color.background
