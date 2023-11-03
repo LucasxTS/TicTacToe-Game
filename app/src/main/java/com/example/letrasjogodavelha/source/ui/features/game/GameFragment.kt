@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.letrasjogodavelha.R
 import com.example.letrasjogodavelha.databinding.GameFragmentBinding
 import com.example.letrasjogodavelha.source.domain.models.Tile
+import java.util.Locale
 
 class GameFragment: Fragment() {
 
@@ -42,6 +43,21 @@ class GameFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
         computerPlaysFirst()
+        bindLiveData()
+        viewModel.onCreate()
+    }
+
+    private fun bindLiveData() {
+        viewModel.seconds.observe(viewLifecycleOwner) {
+            val hours: Int = it / 3600
+            val minutes: Int = it % 3600 / 60
+            val secs: Int = it % 60
+            val text = String.format(
+                Locale.getDefault(),
+                "%d:%02d:%02d",
+                hours, minutes, secs)
+            binding.stopwatch.text = text
+        }
     }
 
     private fun computerPlaysFirst() {
@@ -82,11 +98,12 @@ class GameFragment: Fragment() {
 
     private fun checkStatus(lastTile: Tile) {
         if (viewModel.checkWin()) {
-            openDialogWith("VENCEDOR", "${lastTile.toString().uppercase()} venceu a partida!")
+            openDialogWith(getString(R.string.win), "${lastTile.toString().uppercase()} ${getString(R.string.win_the_match)}")
         }
 
         if (viewModel.checkDraw()) {
-            openDialogWith("EMPATE", "Deu velha!")
+
+            openDialogWith(getString(R.string.draw), getString(R.string.the_match_tie))
         }
     }
 

@@ -1,10 +1,15 @@
 package com.example.letrasjogodavelha.source.ui.features.game
 
 
+import android.os.Handler
+import android.os.Looper
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letrasjogodavelha.source.domain.models.Tile
 
-class GameViewModel : ViewModel() {
+
+class GameViewModel: ViewModel() {
+    var seconds = MutableLiveData(0)
     private var firstPlayerTurn: Boolean = false
 
     private var tileList: MutableList<Tile> = mutableListOf(
@@ -19,9 +24,23 @@ class GameViewModel : ViewModel() {
         Tile.EMPTY
     )
 
+    fun onCreate() {
+        startTimer()
+    }
+
+    private fun startTimer() {
+        val mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(object: Runnable {
+            override fun run() {
+                seconds.postValue(seconds.value?.plus(1) ?: 0)
+                mainHandler.postDelayed(this, 1000)
+            }
+        })
+    }
+
     fun didSelect(index: Int): Tile {
         firstPlayerTurn = !firstPlayerTurn
-        val tile = if (firstPlayerTurn) Tile.X else Tile.O
+        val tile = if(firstPlayerTurn) Tile.X else Tile.O
         tileList[index] = tile
         return tile
     }
@@ -42,12 +61,11 @@ class GameViewModel : ViewModel() {
     }
 
     fun getRandomEmptyIndex(): Int? {
-        if (checkDraw() || checkWin()) {
+        if (checkDraw() || checkWin()){
             return null
         }
         val emptyIndexes = (0 until tileList.size).filter { tileList[it] == Tile.EMPTY }
         val randomEmptyIndex = emptyIndexes.random()
-
         return randomEmptyIndex
     }
 }

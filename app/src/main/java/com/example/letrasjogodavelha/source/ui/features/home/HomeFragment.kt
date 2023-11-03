@@ -50,7 +50,7 @@ class HomeFragment: Fragment() {
     }
 
     private fun navigateToGame(isSinglePlayer: Boolean) {
-        val bundle = bundleOf("isSinglePlayer" to isSinglePlayer)
+        val bundle = bundleOf("isSinglePlayer" to isSinglePlayer, "playsFirst" to playsFirst)
         findNavController().navigate(R.id.action_goToGame, bundle)
     }
 
