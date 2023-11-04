@@ -28,6 +28,22 @@ class GameViewModel: ViewModel() {
     fun onCreate() {
         startTimer()
     }
+
+    fun resetTileList() {
+        seconds.postValue(0)
+        firstPlayerTurn = false
+        tileList = mutableListOf(
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY,
+            Tile.EMPTY
+        )
+    }
     // INICIANDO O TIMER PARA PASSAR A CADA UM SEGUNDO E COLOCAR O VALOR NO LIVEDATA SEMPRE QUE MUDAR
     private fun startTimer() {
         val mainHandler = Handler(Looper.getMainLooper())
@@ -41,7 +57,7 @@ class GameViewModel: ViewModel() {
     // VERIFICANDO QUAL TILE VAI SER USADO DURANTE O GAME
     fun didSelect(index: Int): Tile {
         firstPlayerTurn = !firstPlayerTurn
-        val tile = if(firstPlayerTurn) Tile.X else Tile.O
+        val tile = if(firstPlayerTurn) Tile.O else Tile.X
         tileList[index] = tile
         return tile
     }

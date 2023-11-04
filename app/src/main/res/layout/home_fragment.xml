@@ -1,83 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:textSize="36sp"
-        android:textColor="@color/accent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_tile"
-        android:fontFamily="sans-serif-condensed-medium"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:layout_margin="24dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAI"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/closeIcon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:background="@color/accent"
-            android:src="@drawable/close"
-            app:tint="@color/background" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="30sp"
+            android:text="Tipo de jogo"/>
 
-        <ImageView
-            android:id="@+id/circleIcon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:background="@color/background"
-            android:src="@drawable/baseline_circle_24"
-            app:tint="@color/accent" />
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/button_toggle_group"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:checkedButton="@+id/vs_player">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/vs_player"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="vs Jogador"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/vs_bot"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="vs Bot"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="30sp"
+            android:text="Nome dos jogadores"/>
+
+        <EditText
+            android:id="@+id/player_edittext"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:lines="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:hint="Jogador 1"/>
+
+        <EditText
+            android:id="@+id/bot_edittext"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/round_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:lines="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:hint="Jogador 2"/>
+
+        <Button
+            android:id="@+id/button_go_to_game"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Começar partida"
+            android:backgroundTint="@color/accent"
+            android:textColor="@color/background"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/button_go_to_history"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Histórico de partidas"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/background"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonAI"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/accent"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/start_ai"
-        android:textColor="@color/background"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPlayer"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/buttonPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/accent"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/start_2p"
-        android:textColor="@color/background"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

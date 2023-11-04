@@ -1,6 +1,6 @@
 package com.example.letrasjogodavelha.source.ui.features.home
 
-import android.graphics.PorterDuff
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,61 +10,93 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.letrasjogodavelha.R
 import com.example.letrasjogodavelha.databinding.HomeFragmentBinding
-import com.example.letrasjogodavelha.source.domain.models.Tile
 
 class HomeFragment: Fragment() {
 
+    private var isSinglePlayer: Boolean = false
     private lateinit var binding: HomeFragmentBinding
-    private var playsFirst: Boolean = true
 
-    // MOMENTO EM QUE A VIEW DO FRAGMENT VAI SER CRIADA
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
-    // MOMENTO EM QUE A VIEW DO FRAGMENT JA FOI CRIADA E SETANDO O LAYOUT
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
-        setPlayerTile(if(playsFirst) Tile.X else Tile.O)
+        setState(isSinglePlayer)
     }
 
-    // PEGANDO AS VIEWS E COLOCANDO OUVINTES DE CLICKS NELA
+    override fun onResume() {
+        super.onResume()
+        binding.playerEdittext.setText(getPlayerName())
+    }
+
     private fun bindUI() {
-        binding.buttonAI.setOnClickListener {
-            navigateToGame(true)
+        binding.buttonGoToGame.setOnClickListener {
+            navigateToGame()
         }
 
-        binding.buttonPlayer.setOnClickListener {
-            navigateToGame(false)
+        binding.buttonGoToHistory.setOnClickListener {
+            navigateWithAction(R.id.action_go_to_history, null)
         }
 
-        binding.closeIcon.setOnClickListener {
-            setPlayerTile(Tile.X)
+        binding.vsBot.setOnClickListener {
+            setState(true)
         }
 
-        binding.circleIcon.setOnClickListener {
-            setPlayerTile(Tile.O)
+        binding.vsPlayer.setOnClickListener {
+            setState(false)
         }
     }
-    // NAVEGANDO PARA O FRAGMENT DO GAME COM DOIS ARGUMENTOS BOOLEANOS
-    private fun navigateToGame(isSinglePlayer: Boolean) {
-        val bundle = bundleOf("isSinglePlayer" to isSinglePlayer, "playsFirst" to playsFirst)
-        findNavController().navigate(R.id.action_goToGame, bundle)
+
+    private fun navigateToGame() {
+        savePlayerName()
+        if (validateNavigateToGame()) {
+            navigateWithAction(R.id.action_go_to_game, gameBundle())
+        }
     }
 
-    // TROCANDO AS CORES DE ACORDO COM A SELEÇÃO DO USUARIO AO TILE
-    private fun setPlayerTile(tile: Tile) {
-        playsFirst = tile == Tile.X
-        val mainColor = if (tile == Tile.X) R.color.accent else R.color.background
-        val secondaryColor= if(tile == Tile.X) R.color.background else R.color.accent
-        binding.closeIcon.setBackgroundColor(resources.getColor(mainColor, null))
-        binding.closeIcon.setColorFilter(resources.getColor(secondaryColor, null), PorterDuff.Mode.MULTIPLY)
-        binding.circleIcon.setBackgroundColor(resources.getColor(secondaryColor, null))
-        binding.circleIcon.setColorFilter(resources.getColor(mainColor, null), PorterDuff.Mode.MULTIPLY)
+    private fun getPlayerName(): String {
+        val sharedPreferences = activity?.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+        val savedName = sharedPreferences?.getString("firstPlayer", null)
+        return savedName ?: ""
+    }
+
+    private fun savePlayerName() {
+        val sharedPreferences = activity?.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.apply {
+            putString("firstPlayer", binding.playerEdittext.text.toString())
+        }?.apply()
+    }
+
+    private fun validateNavigateToGame(): Boolean {
+        if (isSinglePlayer) {
+            return binding.playerEdittext.text.isNotEmpty()
+        }
+        return binding.playerEdittext.text.isNotEmpty() && binding.botEdittext.text.isNotEmpty()
+    }
+
+    private fun setState(isSinglePlayer: Boolean) {
+        binding.botEdittext.text.clear()
+        binding.botEdittext.visibility = if(isSinglePlayer) View.GONE else View.VISIBLE
+        binding.buttonToggleGroup.check(if(isSinglePlayer) R.id.vs_bot else R.id.vs_player)
+        this.isSinglePlayer = isSinglePlayer
+    }
+
+    private fun navigateWithAction(action: Int, bundle: Bundle?) {
+        findNavController().navigate(action, bundle)
+    }
+
+    private fun gameBundle(): Bundle {
+        return bundleOf(
+            "firstPlayer" to binding.playerEdittext.text.toString(),
+            "secondPlayer" to binding.botEdittext.text.toString(),
+            "isSinglePlayer" to isSinglePlayer)
     }
 }
